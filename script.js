@@ -13,15 +13,15 @@ function getComputerChoice() {
 }
 
 function getHumanChoice() {
-  let choice = Number(prompt('Ingresa tu elección: (1 es Piegra, 2 es Papel, 3 es Tijera)'));
+  let choice = prompt('Ingresa tu elección: (1 es Piegra, 2 es Papel, 3 es Tijera)');
   let humanChoice = '';
 
-  if (choice < 1 || choice > 3) {
+  if (choice.toLowerCase() != 'piedra' && choice.toLowerCase() != 'papel' && choice.toLowerCase() != 'tijera') {
     console.log('Ingresa una opción correcta');
     return;
-  } else if (choice === 1) {
+  } else if (choice.toLowerCase() === 'piedra') {
     humanChoice = 'Piedra';
-  } else if (choice === 2) {
+  } else if (choice.toLowerCase() === 'papel') {
     humanChoice = 'Papel';
   } else {
     humanChoice = 'Tijera';
@@ -66,18 +66,18 @@ function conditionalScore(winner) {
   }
 }
 
-let computerScore = 0;
-let humanScore = 0;
-let winner = '';
-
 function playGame() {
-
+  
   for (let i = 1; i <= 5; i++) {
     winner = playRound();
     conditionalScore(winner);
   }
-
+  
   console.log('Jugador: ' + humanScore, 'Computador: ' + computerScore);
 }
+
+let computerScore = 0;
+let humanScore = 0;
+let winner = '';
 
 playGame();
