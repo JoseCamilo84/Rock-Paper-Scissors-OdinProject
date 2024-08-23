@@ -29,44 +29,55 @@ function getHumanChoice() {
   return humanChoice;
 }
 
-function playRound(computerScore, humanScore) {
+function playRound() {
   let computerSelection =  getComputerChoice();
   let humanSelection = getHumanChoice();
+  let roundWinner = '';
 
   if (computerSelection === 'Piedra' && humanSelection === 'Papel') {
     console.log('!Ganaste¡, Papel gana a Piedra');
-    humanScore = humanScore + 1;
+    roundWinner = 'Human';
   } else if (computerSelection === 'Piedra' && humanSelection === 'Tijera') {
     console.log('!Perdiste¡, Piedra gana a Tijera');
-    computerScore = computerScore + 1;
+    roundWinner = 'Computer';
   } else if (computerSelection === 'Papel' && humanSelection === 'Piedra') {
     console.log('!Perdiste¡, Papel gana a Piedra');
-    computerScore = computerScore + 1;
+    roundWinner = 'Computer';
   } else if (computerSelection === 'Papel' && humanSelection === 'Tijera') {
     console.log('!Ganaste¡, Tijera gana a Papel');
-    humanScore = humanScore + 1;
+    roundWinner = 'Human';
   } else if (computerSelection === 'Tijera' && humanSelection === 'Piedra') {
     console.log('!Ganaste¡, Piedra gana a Tijera');
-    humanScore = humanScore + 1;
+    roundWinner = 'Human';
   } else if (computerSelection === 'Tijera' && humanSelection === 'Papel') {
     console.log('!Perdiste¡, Tijera gana a Papel');
-    computerScore = computerScore + 1;
+    roundWinner = 'Computer';
   } else if (computerSelection === humanSelection) {
     console.log('!Empate¡');
   }
-  console.log('Jugador: ' + humanScore, 'Computador: ' + computerScore);
+  return roundWinner;
+}
+
+function conditionalScore(winner) {
+  if (winner === 'Human') {
+    humanScore++;
+  } else if (winner === 'Computer') {
+    computerScore++;
+  }
 }
 
 let computerScore = 0;
 let humanScore = 0;
+let winner = '';
 
 function playGame() {
 
-  playRound(computerScore, humanScore);
-  playRound(computerScore, humanScore);
-  // playRound(computerScore, humanScore);
-  // playRound(computerScore, humanScore);
-}
+  for (let i = 1; i <= 5; i++) {
+    winner = playRound();
+    conditionalScore(winner);
+  }
 
+  console.log('Jugador: ' + humanScore, 'Computador: ' + computerScore);
+}
 
 playGame();
