@@ -13,7 +13,7 @@ function getComputerChoice() {
 }
 
 function getHumanChoice() {
-  let choice = prompt('Ingresa tu elección: (1 es Piegra, 2 es Papel, 3 es Tijera)');
+  let choice = prompt('Ingresa tu elección:');
   let humanChoice = '';
 
   if (choice.toLowerCase() != 'piedra' && choice.toLowerCase() != 'papel' && choice.toLowerCase() != 'tijera') {
