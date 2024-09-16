@@ -12,72 +12,65 @@ function getComputerChoice() {
   return computerChoice;
 }
 
-function getHumanChoice() {
-  let choice = prompt('Ingresa tu elección:');
-  let humanChoice = '';
+function playRound(humanSelection) {
 
-  if (choice.toLowerCase() != 'piedra' && choice.toLowerCase() != 'papel' && choice.toLowerCase() != 'tijera') {
-    console.log('Ingresa una opción correcta');
-    return;
-  } else if (choice.toLowerCase() === 'piedra') {
-    humanChoice = 'Piedra';
-  } else if (choice.toLowerCase() === 'papel') {
-    humanChoice = 'Papel';
-  } else {
-    humanChoice = 'Tijera';
-  }
-  return humanChoice;
-}
-
-function playRound() {
   let computerSelection =  getComputerChoice();
-  let humanSelection = getHumanChoice();
   let roundWinner = '';
 
   if (computerSelection === 'Piedra' && humanSelection === 'Papel') {
-    console.log('!Ganaste¡, Papel gana a Piedra');
+    results.textContent = '!Ganaste¡, Papel gana a Piedra';
     roundWinner = 'Human';
   } else if (computerSelection === 'Piedra' && humanSelection === 'Tijera') {
-    console.log('!Perdiste¡, Piedra gana a Tijera');
+    results.textContent = '!Perdiste¡, Piedra gana a Tijera';
     roundWinner = 'Computer';
   } else if (computerSelection === 'Papel' && humanSelection === 'Piedra') {
-    console.log('!Perdiste¡, Papel gana a Piedra');
+    results.textContent = '!Perdiste¡, Papel gana a Piedra';
     roundWinner = 'Computer';
   } else if (computerSelection === 'Papel' && humanSelection === 'Tijera') {
-    console.log('!Ganaste¡, Tijera gana a Papel');
+    results.textContent = '!Ganaste¡, Tijera gana a Papel';
     roundWinner = 'Human';
   } else if (computerSelection === 'Tijera' && humanSelection === 'Piedra') {
-    console.log('!Ganaste¡, Piedra gana a Tijera');
+    results.textContent = '!Ganaste¡, Piedra gana a Tijera';
     roundWinner = 'Human';
   } else if (computerSelection === 'Tijera' && humanSelection === 'Papel') {
-    console.log('!Perdiste¡, Tijera gana a Papel');
+    results.textContent = '!Perdiste¡, Tijera gana a Papel';
     roundWinner = 'Computer';
   } else if (computerSelection === humanSelection) {
-    console.log('!Empate¡');
+    results.textContent = '!Draw';
   }
-  return roundWinner;
+  conditionalScore(roundWinner);
 }
 
 function conditionalScore(winner) {
   if (winner === 'Human') {
-    humanScore++;
-  } else if (winner === 'Computer') {
-    computerScore++;
+    humanSpan.textContent = ++humanScore;
+  }
+  else if (winner === 'Computer') {
+    computerSpan.textContent = ++computerScore;
+  }
+  if (humanScore === 5 || computerScore === 5) {
+    results.textContent = 'Winner!!! ' + winner;
   }
 }
 
 function playGame() {
+  rockBtn.addEventListener('click', () => playRound('Piedra'));
+
+  paperBtn.addEventListener('click', () => playRound('Papel'));
   
-  for (let i = 1; i <= 5; i++) {
-    winner = playRound();
-    conditionalScore(winner);
-  }
-  
-  console.log('Jugador: ' + humanScore, 'Computador: ' + computerScore);
+  scissorsBtn.addEventListener('click', () => playRound('Tijera'));
 }
 
 let computerScore = 0;
 let humanScore = 0;
 let winner = '';
+
+const rockBtn = document.querySelector('#rock');
+const paperBtn = document.querySelector('#paper');
+const scissorsBtn = document.querySelector('#scissors');
+
+const humanSpan = document.querySelector('#humanScore');
+const computerSpan = document.querySelector('#computerScore');
+const results = document.querySelector('#results');
 
 playGame();
